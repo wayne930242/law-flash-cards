@@ -6,22 +6,25 @@ export const BackSide = ({
 }: {
   data: TypeCard,
 }) => {
-  
+
   return (
     <>
       {typeof data.back === 'boolean'
         ? (
-          <Box>
+          <Box
+            className='flex flex-row justify-center'
+          >
             <Checkbox disabled checked={data.back} />
           </Box>
         )
         : (
           <Box
+            className='flex flex-row justify-center'
             noValidate
             autoComplete="off"
             component="form"
           >
-            <TextField disabled id="outlined-basic" variant="outlined" size="small" value={data.back}/>
+            <TextField disabled id="outlined-basic" variant="outlined" size="small" value={data.back} />
           </Box>
         )
       }

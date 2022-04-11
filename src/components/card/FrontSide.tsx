@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import cx from 'classnames'
 import { GlobalContext } from '../Flashcards'
 import { Box, Checkbox, TextField } from '@mui/material'
 
@@ -19,23 +20,24 @@ export const FrontSide = ({
 
   if (typeof data.back === 'boolean') {
     return (
-      <div
-        className={deliver && ans !== data.back ? 'bg-red-400' : ''}
+      <Box
+        className={cx(
+          'flex flex-row justify-center',
+          { "bg-red-200": deliver && Boolean(ans) !== Boolean(data.back) },
+          { "bg-green-200": deliver && Boolean(ans) === Boolean(data.back) },
+        )}
       >
-        <Box>
-          <Checkbox
-            onChange={handleOnCheck}
-            checked={Boolean(ans) as boolean}
-            color={!deliver
-              ? 'default'
-              : ans === data.back
-                ? 'success'
-                : 'error'
-            }
-          />
-        </Box>
-      </div>
-
+        <Checkbox
+          onChange={handleOnCheck}
+          checked={Boolean(ans) as boolean}
+          color={!deliver
+            ? 'default'
+            : ans === data.back
+              ? 'success'
+              : 'error'
+          }
+        />
+      </Box>
     )
   }
 
@@ -47,11 +49,21 @@ export const FrontSide = ({
 
   return (
     <Box
+      className={cx(
+        'flex flex-row justify-center',
+        { "bg-red-200": deliver && String(ans) !== String(data.back) },
+        { "bg-green-200": deliver && String(ans) === String(data.back) },
+      )
+      }
       noValidate
       autoComplete="off"
       component="form"
     >
-      <TextField id="outlined-basic" label={unit} onChange={handleOnInput} size="small"
+      <TextField
+        id="outlined-basic"
+        label={unit}
+        onChange={handleOnInput}
+        size="small"
         color={!deliver
           ? 'primary'
           : String(ans) === String(data.back)
@@ -59,6 +71,6 @@ export const FrontSide = ({
             : 'error'
         }
       />
-    </Box>
+    </Box >
   )
 }
