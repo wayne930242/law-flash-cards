@@ -13,6 +13,7 @@ import {
   SelectChangeEvent,
   Button,
 } from '@mui/material'
+import { SmartButton } from '@mui/icons-material'
 
 import { TableCompute } from './table'
 import { TypeFlashCard } from '../data/interface'
@@ -75,16 +76,23 @@ export const Flashcards = () => {
             </Select>
           </FormControl>
         </Box>
-        <div className='py-4 flex flex-row justify-end'>
-          <div className='mx-2'>
-            <Button onClick={handleOnDiliver} variant={deliver ? "outlined" : "contained"} color="success">
-              {deliver ? '重來' : '對答案'}
+        <div className='py-4 flex flex-row justify-between'>
+          <div>
+            <Button variant='contained' color='warning' startIcon={<SmartButton />}>
+              好手氣
             </Button>
           </div>
-          <div className='mx-2'>
-            <Button onClick={handleOnPeak} variant={reveal ? "outlined" : "contained"}>
-              {reveal ? '翻面' : '看答案'}
-            </Button>
+          <div className='flex flex-row justify-center'>
+            <div className='mx-2'>
+              <Button onClick={handleOnDiliver} variant={deliver ? "outlined" : "contained"} color="success">
+                {deliver ? '重來' : '對答案'}
+              </Button>
+            </div>
+            <div className='mx-2'>
+              <Button onClick={handleOnPeak} variant={reveal ? "outlined" : "contained"}>
+                {reveal ? '翻面' : '看答案'}
+              </Button>
+            </div>
           </div>
         </div>
         <TableContainer component={Paper}>

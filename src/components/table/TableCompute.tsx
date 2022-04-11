@@ -42,7 +42,9 @@ export const TableCompute = ({
                 rowSpanBuffer = 1
 
                 return (
-                  <TableCell key={j} colSpan={colSpan} rowSpan={rowSpan}>
+                  <TableCell key={j} colSpan={colSpan} rowSpan={rowSpan} sx={{
+                    border: '1px solid rgba(224, 224, 224, 1)'
+                  }}>
                     <TableCard data={cell} />
                   </TableCell>
                 )
