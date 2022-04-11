@@ -2,7 +2,7 @@ import { TypeData, TypeFlashCard } from './interface'
 
 const id = '71-73'
 
-const name = '計規 #71-73 表格'
+const name = '技規 #71-73 表格'
 
 const head: string[][] = [
   ['', '<', '<', '3hr', '2hr', '1hr'],
