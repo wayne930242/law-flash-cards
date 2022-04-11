@@ -1,7 +1,6 @@
-import TableRow from '@mui/material/TableRow'
-import TableCell from '@mui/material/TableCell'
+import { TableRow, TableCell } from '@mui/material'
 
-import { TableRowCompute } from '.'
+import { TableCard } from '../card/TableCard'
 import { TypeData } from '../../data/interface'
 
 export const TableCompute = ({
@@ -9,11 +8,47 @@ export const TableCompute = ({
 }: {
   dataTable: TypeData[][],
 }) => {
+  let colSpanBuffer = 1
+  let rowSpanBuffer = 1
+
   return (
     <>
       {dataTable.map((row, i) => {
+        const dataArray = row
+
         return (
-          <TableRowCompute dataArray={row} key={i} />
+          <TableRow key={i}>
+            {
+              dataArray.map((cell, j) => {
+                if (cell === '<') return null
+                if (cell === '^') return null
+
+                let index = j
+                while (dataArray[index + 1] === '<') {
+                  colSpanBuffer++
+                  index++
+                }
+
+                index = i
+                while (dataTable[index + 1] && dataTable[index + 1][j] === '^') {
+                  rowSpanBuffer++
+                  index++
+                }
+
+                const colSpan = colSpanBuffer
+                const rowSpan = rowSpanBuffer
+
+                colSpanBuffer = 1
+                rowSpanBuffer = 1
+
+                return (
+                  <TableCell key={j} colSpan={colSpan} rowSpan={rowSpan}>
+                    <TableCard data={cell} />
+                  </TableCell>
+                )
+              })
+            }
+          </TableRow>
         )
       })}
     </>

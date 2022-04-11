@@ -11,7 +11,6 @@ import {
   FormControl,
   Select,
   SelectChangeEvent,
-  Divider,
   Button,
 } from '@mui/material'
 
@@ -45,10 +44,12 @@ export const Flashcards = () => {
 
   const handleOnPeak = (_e: React.MouseEvent<Element>) => {
     setReveal(r => !r)
+    setDeliver(false)
   }
 
   const handleOnDiliver = (_e: React.MouseEvent<Element>) => {
     setDeliver(r => !r)
+    setReveal(false)
   }
 
   const handleChange = (e: SelectChangeEvent) => {
@@ -75,14 +76,14 @@ export const Flashcards = () => {
           </FormControl>
         </Box>
         <div className='py-4 flex flex-row justify-end'>
-          <div className='mx-4'>
-            <Button onClick={handleOnDiliver} variant={reveal ? "outlined" : "contained"} color="success">
-              {reveal ? '重試' : '對答案'}
+          <div className='mx-2'>
+            <Button onClick={handleOnDiliver} variant={deliver ? "outlined" : "contained"} color="success">
+              {deliver ? '重來' : '對答案'}
             </Button>
           </div>
-          <div className='mx-4'>
+          <div className='mx-2'>
             <Button onClick={handleOnPeak} variant={reveal ? "outlined" : "contained"}>
-              {reveal ? '蓋起來' : '看答案'}
+              {reveal ? '翻面' : '看答案'}
             </Button>
           </div>
         </div>

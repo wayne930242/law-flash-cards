@@ -6,6 +6,7 @@ export const BackSide = ({
 }: {
   data: TypeCard,
 }) => {
+  
   return (
     <>
       {typeof data.back === 'boolean'
