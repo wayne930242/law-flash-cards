@@ -41,13 +41,13 @@ export const GlobalContext = createContext<{
 })
 
 export const Flashcards = () => {
-  const [currentId, setCurrentId] = useState<string>(Data[0] ? Data[0].id : null)
+  const AllData: TypeFlashCard[] = Data
+
+  const [currentId, setCurrentId] = useState<string>(AllData[~~((AllData.length) * Math.random())].id)
   const [reveal, setReveal] = useState<boolean>(false)
   const [deliver, setDeliver] = useState<boolean>(false)
   const [clear, setClear] = useState<boolean>(false)
   const [openHelp, setOpenHelp] = useState<boolean>(false)
-
-  const AllData: TypeFlashCard[] = Data
 
   const current: TypeFlashCard = AllData.filter(ele => ele.id === currentId)[0]
 
