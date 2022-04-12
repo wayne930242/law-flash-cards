@@ -75,6 +75,9 @@ export const Flashcards = () => {
   }
 
   const handleChange = (e: SelectChangeEvent) => {
+    setReveal(false)
+    setDeliver(false)
+    setOpenHelp(false)
     setCurrentId(e.target.value)
   }
 
