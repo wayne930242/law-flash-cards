@@ -55,6 +55,7 @@ export const Flashcards = () => {
     setReveal(false)
     setDeliver(false)
     setOpenHelp(false)
+    setClear(true)
     setCurrentId(AllData[~~((AllData.length) * Math.random())].id)
   }
 
@@ -78,6 +79,7 @@ export const Flashcards = () => {
     setReveal(false)
     setDeliver(false)
     setOpenHelp(false)
+    setClear(true)
     setCurrentId(e.target.value)
   }
 

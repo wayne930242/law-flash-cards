@@ -1,9 +1,9 @@
 export type TypeData =
-  string | TypeCard
+  string | boolean
 
 export type TypeCard = {
   front: string,
-  back: string | number | boolean,
+  back: string | boolean,
 }
 
 export type TypeFlashCard = {

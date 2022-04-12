@@ -9,10 +9,9 @@ import { TypeCard } from '../../data/interface'
 export const TableCard = ({
   data,
 }: {
-  data: TypeCard | string,
+  data: string | boolean,
 }) => {
-
-  const [ans, setAns] = useState<boolean | string | number>(null)
+  const [ans, setAns] = useState<boolean | string>(null)
 
   const { deliver, reveal, clear, setClear, openHelp } = useContext(GlobalContext)
 
@@ -27,6 +26,10 @@ export const TableCard = ({
     setAnchorEl(null)
   }
 
+  const handleOnCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAns(e.target.checked)
+  }
+
   useEffect(() => {
     if (clear === false) return
     setAns(null)
@@ -34,34 +37,24 @@ export const TableCard = ({
 
   }, [clear, setClear])
 
-  if (typeof data === 'string') {
-    return (<div>
-      {data}
-    </div>)
-  }
-
-  const handleOnCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAns(e.target.checked)
-  }
-
-  if (typeof data.back === 'boolean') {
+  if (typeof data === 'boolean') {
     return (
       <Box
         className={cx(
           'flex flex-row justify-center',
-          { "bg-red-200": deliver && Boolean(ans) !== Boolean(data.back) },
-          { "bg-green-200": deliver && Boolean(ans) === Boolean(data.back) },
+          { "bg-red-200": deliver && Boolean(ans) !== Boolean(data) },
+          { "bg-green-200": deliver && Boolean(ans) === Boolean(data) },
         )}
       >
         <Checkbox
           onChange={handleOnCheck}
           checked={reveal
-            ? Boolean(data.back) as boolean
+            ? Boolean(data) as boolean
             : Boolean(ans) as boolean
           }
           color={!deliver
             ? 'default'
-            : ans === data.back
+            : Boolean(ans) === Boolean(data)
               ? 'success'
               : 'error'
           }
@@ -71,7 +64,19 @@ export const TableCard = ({
     )
   }
 
-  const unit = data.front.replaceAll('[]', ' ? ')
+  if (data.search(/\[.*?\]/) === -1) {
+    return (<div>
+      {data}
+    </div>)
+  }
+
+  const back = data.match(/\[.*?\]/)[0].replace('[', '').replace(']', '')
+  const frontArray: string[] = data.split(/\[.*?\]/)
+
+  const card: TypeCard = {
+    front: frontArray.join(' ? '),
+    back,
+  }
 
   const handleOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAns(e.target.value)
@@ -82,8 +87,8 @@ export const TableCard = ({
       <Box
         className={cx(
           'flex flex-row justify-center',
-          { "bg-yellow-200": deliver && String(ans) !== String(data.back) },
-          { "bg-green-200": deliver && String(ans) === String(data.back) },
+          { "bg-yellow-200": deliver && String(ans) !== String(card.back) },
+          { "bg-green-200": deliver && String(ans) === String(card.back) },
         )}
         noValidate
         autoComplete="off"
@@ -93,13 +98,13 @@ export const TableCard = ({
           id="outlined-basic"
           label={reveal
             ? undefined
-            : unit
+            : card.front
           }
           onChange={handleOnInput}
           size="small"
           color={!deliver
             ? 'primary'
-            : String(ans) === String(data.back)
+            : String(ans) === String(card.back)
               ? 'success'
               : 'warning'
           }
@@ -110,7 +115,7 @@ export const TableCard = ({
           margin='dense'
           variant='standard'
           multiline={true}
-          value={reveal ? data.back : ans ?? ''}
+          value={reveal ? card.back : ans ?? ''}
           InputProps={{
             endAdornment: openHelp
               ? (
@@ -124,7 +129,7 @@ export const TableCard = ({
                       horizontal: 'left',
                     }}
                   >
-                    <Typography sx={{ p: 2 }}>{data.back}</Typography>
+                    <Typography sx={{ p: 2 }}>{card.back}</Typography>
                   </Popover>
                   <IconButton onClick={handleClick} size="small" color='info'>
                     <Help fontSize='small' />
@@ -137,7 +142,7 @@ export const TableCard = ({
       </Box >
       {deliver ? <Typography sx={{
         fontSize: '0.7rem',
-      }}>{data.back}</Typography> : null}
+      }}>{card.back}</Typography> : null}
     </div>
   )
 }
