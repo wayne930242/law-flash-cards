@@ -1,10 +1,10 @@
-import { TypeData, TypeFlashCard } from './interface'
+import { TypeData, TypeFlashCard } from '../interface'
 
-const id = '71-73'
+const id = 'btr-71-73'
 
-const name = '技規 #71-73 表格'
+const name = '技規 #71-73'
 
-const head: string[][] = [
+const head: TypeData[][] = [
   ['', '<', '<', '3hr', '2hr', '1hr'],
 ]
 const data: TypeData[][] = [

@@ -13,35 +13,47 @@ import {
   SelectChangeEvent,
   Button,
 } from '@mui/material'
-import { SmartButton } from '@mui/icons-material'
+import { SmartButton, Help } from '@mui/icons-material'
 
 import { TableCompute } from './table'
 import { TypeFlashCard } from '../data/interface'
 
-import { seventyOneToSeventyThree } from '../data'
+import Data from '../data'
 
 export const GlobalContext = createContext<{
   reveal: boolean,
   setReveal: React.Dispatch<React.SetStateAction<boolean>>,
   deliver: boolean,
   setDeliver: React.Dispatch<React.SetStateAction<boolean>>,
+  clear: boolean,
+  setClear: React.Dispatch<React.SetStateAction<boolean>>,
+  openHelp: boolean,
+  setOpenHelp: React.Dispatch<React.SetStateAction<boolean>>,
 }>({
   reveal: false,
   setReveal: null,
   deliver: false,
   setDeliver: null,
+  clear: false,
+  setClear: null,
+  openHelp: false,
+  setOpenHelp: null,
 })
 
 export const Flashcards = () => {
-  const [currentId, setCurrentId] = useState<string>('71-73')
+  const [currentId, setCurrentId] = useState<string>(Data[0] ? Data[0].id : null)
   const [reveal, setReveal] = useState<boolean>(false)
   const [deliver, setDeliver] = useState<boolean>(false)
+  const [clear, setClear] = useState<boolean>(false)
+  const [openHelp, setOpenHelp] = useState<boolean>(false)
 
-  const AllData: TypeFlashCard[] = [
-    seventyOneToSeventyThree,
-  ]
+  const AllData: TypeFlashCard[] = Data
 
   const current: TypeFlashCard = AllData.filter(ele => ele.id === currentId)[0]
+
+  const handleOnLuck = () => {
+    setCurrentId(AllData[~~((AllData.length) * Math.random())].id)
+  }
 
   const handleOnPeak = (_e: React.MouseEvent<Element>) => {
     setReveal(r => !r)
@@ -53,12 +65,20 @@ export const Flashcards = () => {
     setReveal(false)
   }
 
+  const handleOnClear = () => {
+    setClear(true)
+  }
+
   const handleChange = (e: SelectChangeEvent) => {
     setCurrentId(e.target.value)
   }
 
+  const handleOnHelp = () => {
+    setOpenHelp(h => !h)
+  }
+
   return (
-    <GlobalContext.Provider value={{ reveal, setReveal, deliver, setDeliver }}>
+    <GlobalContext.Provider value={{ reveal, setReveal, deliver, setDeliver, clear, setClear, openHelp, setOpenHelp }}>
       <div>
         <Box>
           <FormControl fullWidth>
@@ -77,20 +97,32 @@ export const Flashcards = () => {
           </FormControl>
         </Box>
         <div className='py-4 flex flex-row justify-between'>
-          <div>
-            <Button variant='contained' color='warning' startIcon={<SmartButton />}>
-              好手氣
-            </Button>
+          <div className='flex flex-row justify-center'>
+            <div className='mx-2'>
+              <Button onClick={handleOnLuck} variant='contained' color='warning' startIcon={<SmartButton />}>
+                隨選
+              </Button>
+            </div>
+            <div className='mx-2'>
+              <Button onClick={handleOnHelp} variant={openHelp ? 'outlined' : 'contained'} color='info' startIcon={<Help />}>
+                提示模式
+              </Button>
+            </div>
           </div>
           <div className='flex flex-row justify-center'>
             <div className='mx-2'>
               <Button onClick={handleOnDiliver} variant={deliver ? "outlined" : "contained"} color="success">
-                {deliver ? '重來' : '對答案'}
+                {deliver ? '重來' : '交卷'}
               </Button>
             </div>
             <div className='mx-2'>
               <Button onClick={handleOnPeak} variant={reveal ? "outlined" : "contained"}>
-                {reveal ? '翻面' : '看答案'}
+                {reveal ? '翻面' : '答案'}
+              </Button>
+            </div>
+            <div className='mx-2'>
+              <Button onClick={handleOnClear} variant={"contained"} color="error">
+                清空
               </Button>
             </div>
           </div>

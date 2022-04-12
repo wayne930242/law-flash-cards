@@ -44,7 +44,9 @@ export const TableCompute = ({
                 return (
                   <TableCell key={j} colSpan={colSpan} rowSpan={rowSpan} sx={{
                     border: '1px solid rgba(224, 224, 224, 1)'
-                  }}>
+                  }}
+                    variant={j === 0 ? 'head' : 'body'}
+                  >
                     <TableCard data={cell} />
                   </TableCell>
                 )

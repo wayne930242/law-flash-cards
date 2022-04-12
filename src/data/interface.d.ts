@@ -10,5 +10,5 @@ export type TypeFlashCard = {
   id: string,
   name: string,
   data: TypeData[][],
-  head: string[][],
+  head: TypeData[][],
 }
