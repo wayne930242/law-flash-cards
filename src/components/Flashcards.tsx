@@ -58,11 +58,13 @@ export const Flashcards = () => {
   const handleOnPeak = (_e: React.MouseEvent<Element>) => {
     setReveal(r => !r)
     setDeliver(false)
+    setOpenHelp(false)
   }
 
   const handleOnDiliver = (_e: React.MouseEvent<Element>) => {
     setDeliver(r => !r)
     setReveal(false)
+    setOpenHelp(false)
   }
 
   const handleOnClear = () => {
@@ -75,6 +77,8 @@ export const Flashcards = () => {
 
   const handleOnHelp = () => {
     setOpenHelp(h => !h)
+    setReveal(false)
+    setDeliver(false)
   }
 
   return (
