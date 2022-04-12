@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/law-flash-cards/static/css/main.c4af8455.css",
-    "main.js": "/law-flash-cards/static/js/main.8baa3f6b.js",
+    "main.js": "/law-flash-cards/static/js/main.65b803c3.js",
     "index.html": "/law-flash-cards/index.html",
     "main.c4af8455.css.map": "/law-flash-cards/static/css/main.c4af8455.css.map",
-    "main.8baa3f6b.js.map": "/law-flash-cards/static/js/main.8baa3f6b.js.map"
+    "main.65b803c3.js.map": "/law-flash-cards/static/js/main.65b803c3.js.map"
   },
   "entrypoints": [
     "static/css/main.c4af8455.css",
-    "static/js/main.8baa3f6b.js"
+    "static/js/main.65b803c3.js"
   ]
 }
