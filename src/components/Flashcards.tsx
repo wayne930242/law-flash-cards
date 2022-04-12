@@ -52,6 +52,9 @@ export const Flashcards = () => {
   const current: TypeFlashCard = AllData.filter(ele => ele.id === currentId)[0]
 
   const handleOnLuck = () => {
+    setReveal(false)
+    setDeliver(false)
+    setOpenHelp(false)
     setCurrentId(AllData[~~((AllData.length) * Math.random())].id)
   }
 
